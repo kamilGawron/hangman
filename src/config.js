@@ -1,0 +1,1 @@
+export const maxTimerValue = 10.00;

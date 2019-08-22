@@ -1,0 +1,404 @@
+$bgLight: rgb(224, 233, 255);
+$bgDark: rgb(7, 14, 29);
+$fontLight: rgb(7, 14, 29);
+$fontDark: rgb(224, 233, 255);
+
+@mixin button-style($height,$width){
+    &[class*="buttons"]{
+        &>div{
+            text-align: center;
+            button{
+                height: $height;
+                width: $width;
+                background-color: rgba(0,0,0,0);
+                outline: none;
+                color: inherit;
+                margin: 5px;
+                border-radius: 5px;
+                transition: all .3s ease-in-out;
+                font-size: 2rem;
+
+                &:disabled{
+                    cursor: not-allowed;
+                }
+                &:not([disabled]):hover{
+                    font-weight: bold;
+                    transform: scale(1.1);
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+    &.buttons-light{
+        button{
+            border: 1px solid rgba( $fontLight, .4 );
+
+            &:disabled{
+                background-color: rgba($bgDark,.7);
+            }
+            &:not([disabled]):hover{
+                border: 1px solid rgba( $fontLight,1 );
+                background-color: rgba($bgDark,.3);
+            }
+        }
+    }
+    &.buttons-dark{
+        button{
+            border: 1px solid rgba( $fontDark, .4 );
+
+            &:disabled{
+                background-color: rgba($bgLight,.7);
+            }
+            &:not([disabled]):hover{
+                border: 1px solid rgba( $fontDark,1 );
+                background-color: rgba($bgLight,.8);
+                color: rgba( $fontLight,1 );
+
+            }
+        }
+    }
+}
+
+.body-light{
+    background-color: $bgLight;
+    color: $fontLight;
+}
+.body-dark{
+    background-color: $bgDark;
+    color: $fontDark;
+}
+html{
+    font-size: 10px;
+    body{
+        font-family: 'Roboto Mono', monospace;
+        margin: 0;
+        .wrapper{
+            display: flex;
+            flex-direction: column;
+            &>div{
+                display: flex;
+                &:nth-of-type(1){
+                    position: relative;
+                    justify-content: center;
+                    flex-direction: column;
+                    h1{
+                        margin-top: 10px;
+                        font-size: 5rem;
+                        text-align: center;
+                        @media all and (max-width: 768px){
+                            margin-top: 0;
+                        }
+                    }                
+                    &>div {
+                        &:nth-of-type(1){
+                            @include button-style(50px,200px);
+                            position: absolute;
+                            left:30px;
+                            top:30px;
+                            &>div{
+                                button{
+                                    font-size: 1rem;
+                                }
+                            }
+                            @media all and (max-width: 768px){
+                                @include button-style(40px,160px);
+                                top:70px;
+                                left: 5px;
+                                &>div{
+                                    button{
+                                        font-size: 1rem;
+                                    }
+                                }
+                            }
+                            @media all and (max-width: 480px){
+                                @include button-style(20px,120px);
+                                &>div{
+                                    button{
+                                        font-size: 1.4rem !important;
+                                    }
+                                }
+                            }
+                        }
+                        &:nth-of-type(2){
+                            position: absolute;
+                            right: 30px;
+                            top:30px;
+                            display: flex;
+                            align-items: center;
+                            text-transform: uppercase;
+                            font-size: 1.4rem; 
+                            flex-direction: row;
+                            @media all and (max-width: 768px){
+                                flex-direction:column;
+                                top:70px;
+                                right: 5px;
+                            }
+                            
+                            input{
+                                display: none;
+                                
+                                &:checked+label{
+                                    background-color: darkgreen;
+                                    border: 1px solid $bgLight;
+
+                                    &:after{
+                                        left: calc(100% - 5px);
+                                        -webkit-transform: translateX(-100%);
+                                        transform: translateX(-100%);
+                                        background-color: $bgDark;
+                                    }
+                                }
+                            }
+                            label{
+                                margin-left: 10px;
+                                cursor: pointer;
+                                width: 60px;
+                                height: 30px;
+                                background-color: #ffffff;
+                                display: block;
+                                border-radius: 100px;
+                                position: relative;
+                                -webkit-transition: all .3s ease-in-out;
+                                transition: all .3s ease-in-out;
+                                border: 1px solid $bgDark;
+                                @media all and (max-width: 480px){
+                                    width: 40px;
+                                    height: 20px;
+                                }
+                                &:after{
+                                    position: absolute;
+                                    top: 5px;
+                                    left: 5px;
+                                    content: '';
+                                    height: 20px;
+                                    width: 20px;
+                                    display: block;
+                                    background-color: grey;
+                                    border-radius: 90px;
+                                    -webkit-transition: all .3s ease-in-out;
+                                    transition: all .3s ease-in-out;
+                                    @media all and (max-width: 480px){
+                                        top: 3px;
+                                        width: 14px;
+                                        height: 14px;
+                                    }
+                                }
+                            }
+                        }
+                        &:nth-of-type(3){
+                            width: 100vw;
+                            height: 10px;
+                            
+                            &>div{
+                                &:nth-of-type(1){
+                                    font-size: 3rem;
+                                    text-align: center;
+                                    &>span{
+                                        &:nth-of-type(1){
+                                            font-size: 4rem; 
+                                        }
+                                    }
+                                    @media all and (max-width: 768px){
+                                        font-size: 2rem;
+                                        &>span{
+                                            &:nth-of-type(1){
+                                                font-size: 3rem; 
+                                            }
+                                        }
+                                    }
+                                    @media all and (max-width: 480px){
+                                        margin-top: 20px;
+                                        &>span{
+                                            &:nth-of-type(1){
+                                                font-size: 2rem; 
+                                            }
+                                        }
+                                    }
+                                    
+                                }
+                                &:nth-of-type(2){
+                                    margin-top: 5px;
+                                    height: 10px;
+                                    &.timer-light{
+                                        background-color: $bgDark;
+                                    }
+                                    &.timer-dark{
+                                        background-color: $bgLight;
+                                    }  
+                                }
+                                
+                            }
+                        }
+                    }
+
+                }
+                
+            }
+            &>div:nth-of-type(2){
+                margin-top: 100px;
+                justify-content: center;
+                
+                @media all and (max-width: 768px){
+                    margin-top: 70px;
+                }
+                
+                div.sign, div.space{
+                    text-align: center;
+                    height: 50px;
+                    width: 50px;
+                    line-height: 50px;
+                    display: inline-block;
+                    margin-right: 10px;
+                    font-size: 4rem;
+                    
+                    @media all and (max-width: 768px){
+                        height: 30px;
+                        width: 30px;
+                        line-height: 30px;
+                        font-size: 3rem;
+                    }
+                    @media all and (max-width: 480px){
+                        height: 20px;
+                        width: 20px;
+                        line-height: 20px;
+                        font-size: 2rem;
+                    }
+                    
+                    .hide{
+                        visibility: hidden;
+                    }
+                    .show{
+                        visibility: visible;
+                    }
+                }
+                .fields-light .sign{
+                    border-bottom: 1px solid $fontLight;
+                    margin-bottom: 5px;
+                }
+                .fields-dark .sign{
+                    border-bottom: 1px solid $fontDark;
+                    margin-bottom: 5px;
+                }
+            }
+            &>div:nth-of-type(3){
+                display: flex;
+                flex-direction: row;
+               
+                @media all and (max-width: 600px){
+                    flex-direction: column;
+                }
+                
+                &>div{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 10px;
+                    @include button-style(50px, 50px);
+
+                    &:nth-of-type(1){
+                        width: 65%;
+                        @media all and (max-width: 768px){
+                            width: 50%;
+                            padding:0;
+                            margin: 0;
+                        }
+                        @media all and (max-width: 600px){
+                            width: 100%;
+                            padding:0;
+                            margin: 0;
+                        }
+                        @media all and (max-width: 480px){
+                            @include button-style(30px, 30px);
+                        }
+                    }
+                    &:nth-of-type(2){
+                        width: 35%;
+                        @media all and (max-width: 768px){
+                            width: 50%;
+                        }
+                        @media all and (max-width: 600px){
+                            width: 100%;
+                        }
+                    }
+                    img{
+                        height: 400px;
+                        max-width: 100%;
+                        margin-right: 40px;
+                        @media all and (max-width: 480px){
+                            height: 250px;
+                        }
+                    }
+                    
+                    
+                    &.loose{
+                        display: flex;
+                        flex-direction: column;
+                        
+                        &>div{
+                            &:nth-of-type(1){
+
+                                &>h3{
+                                    font-size: 4rem;
+                                    text-transform: uppercase;
+                                    margin: 15px 0;
+                                    @media all and (max-width:480px){
+                                        font-size: 2.4rem;
+                                    }
+                                }
+                            }
+                            &:nth-of-type(2){
+                                display: flex;
+                                align-items: center;
+                                &>span{
+                                    text-transform: uppercase;
+                                    text-align: center;
+                                    &:nth-of-type(1){
+                                        font-size: 3rem;
+                                        margin-right: 20px;
+                                        @media all and (max-width:768px){
+                                            font-size: 2rem;
+                                        }
+
+                                    }
+                                    &:nth-of-type(2){
+                                        letter-spacing: 10px;
+                                        font-size: 4rem;
+                                        @media all and (max-width:768px){
+                                            font-size: 3rem;
+                                        }
+                                    }
+                                }
+                            }
+                            &:nth-of-type(3){
+                                &>div{
+                                   @include button-style(60px, 250px);
+                                   @media all and (max-width:768px){
+                                       @include button-style(40px,180px);
+                                   }
+                                }
+                            }
+                        }
+                        button{
+                            width: 200px;
+                        }
+                    }
+                    &.win{
+                        display: flex;
+                        flex-direction: column;
+                        &>h3{
+                            font-size: 4rem;
+                            text-transform: uppercase;
+                            margin: 15px 0;
+                        }
+                        &>div{
+                            @include button-style(50px, 350px)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
