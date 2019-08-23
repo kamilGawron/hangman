@@ -1,6 +1,6 @@
 import React from 'react'
 import NewGameBtn from './NewGameBtn'
-import ChangeTheme from './ChangeTheme'
+import Switcher from './Switcher'
 import Timer from './Timer'
 
 function Header(){
@@ -8,7 +8,7 @@ function Header(){
         <React.Fragment>
             <h1>HANGMAN</h1>
             <NewGameBtn text="new game"/>
-            <ChangeTheme />
+            <Switcher />
             <Timer />
         </React.Fragment>
     )

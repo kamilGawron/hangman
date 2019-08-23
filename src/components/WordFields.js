@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fillFields} from '../services/fillFields'
+import {fillFields,signCounter} from '../services/fillFields'
 import {setWordLen} from '../actions/setWordLen'
-import {signCounter} from '../services/fillFields'
+
 class WordFields extends React.Component{
     constructor(props){
         super(props);

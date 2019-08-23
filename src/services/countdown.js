@@ -27,3 +27,19 @@ export const setCountdown = () =>{
     }
 }
 
+export const getFullSeconds = () =>{
+    return (
+        Math.floor(store.getState().leftTime)
+    )
+}
+export const getHundredthsOfSecond = () =>{
+    return (
+        store.getState().leftTime.toFixed(2).toString().split(".")[1]
+    )
+}
+export const timerStyle = () =>{
+    return {
+        width:(maxTimerValue-store.getState().leftTime)/maxTimerValue*100+'%',
+    }
+}
+

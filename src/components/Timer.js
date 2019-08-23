@@ -1,6 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {setCountdown,stopCountdown} from '../services/countdown'
+import {
+    setCountdown,
+    stopCountdown,
+    getFullSeconds,
+    getHundredthsOfSecond,
+    timerStyle
+} from '../services/countdown'
 import autoChooseSign from '../services/autoChooseSign'
 import {maxTimerValue} from '../config'
 
@@ -17,19 +23,19 @@ class Timer extends React.Component{
             stopCountdown();
         }
     }
-    componentWillUpdate(){
-        
-    }
     render(){
         return(
             <div>
                 <div id="countdown">
-                    <span>{Math.floor(this.props.leftTime)}</span>
+                    <span>{getFullSeconds()}</span>
                     .
-                    <span>{this.props.leftTime.toFixed(2).toString().split(".")[1]}</span>
-                   
+                    <span>{getHundredthsOfSecond()}</span>
                 </div>
-                <div style={{width:(maxTimerValue-this.props.leftTime)/maxTimerValue*100+'%'}} id="timer" className={`timer-${this.props.theme}`}></div>
+                <div 
+                    style={timerStyle()} 
+                    id="timer" 
+                    className={`timer-${this.props.theme}`}>
+                </div>
             </div>
         )
     }
