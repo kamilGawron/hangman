@@ -12,14 +12,16 @@ class WordFields extends React.Component{
         this.props.onSetWordLen(signCounter);
         return(
             <div id="fields" className= {`fields-${this.props.theme}`}>
+               <div>category: {this.props.category}</div>
                 {fields}
             </div>
         )
     }
 }
 const mapStateToProps=state=>({
-    word:state.drawnWord,
-    theme:state.themes
+    word:state.drawnWord.word,
+    theme:state.themes,
+    category : state.drawnWord.category
 })
 
 const mapDispatchToProps =({

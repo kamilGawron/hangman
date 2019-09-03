@@ -9,7 +9,10 @@ class NewGameBtn extends React.Component{
         return(
             <div className={`buttons-${this.props.theme}`}>
                <div>
-                   <button onClick={newGame}>{this.props.text.toUpperCase()}</button> 
+                   <button onClick={newGame}>
+                       {this.props.text}
+                       <span>{this.props.category}</span>
+                   </button> 
                </div>
             </div>
         )

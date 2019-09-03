@@ -1,42 +1,28 @@
 import React from 'react'
-import WordFields from './WordFields'
-import Buttons from './Buttons'
-import HangmanImage from './HangmanImage'
-import Win from './Win'
-import Loose from './Loose'
-import Header from './Header'
+import Menu from './Menu'
+import Game from './Game'
 import {connect} from 'react-redux'
+import {showMenu} from '../services/showMenu'
 
 
 class App extends React.Component{
     render(){
         return(
-            <div className="wrapper">
-               <div>
-                   <Header />
-               </div>
-               <div>
-                   <WordFields />
-                </div>
-                <div>
-                   {
-                       this.props.mistakes!=6?
-                           this.props.signs!=this.props.points?
-                           <Buttons /> : <Win />
-                       :
-                           <Loose />
-                   }
-                   <HangmanImage />
-               </div>
-            </div>
+            <React.Fragment>
+                {
+                    showMenu()? 
+                        <Menu />
+                        : 
+                        <Game />
+                }
+            </React.Fragment>
         )
     }
 }
 
 const mapStateToProps = state =>({
-    signs:state.signsCounter,
-    points:state.rightAttempts,
-    mistakes:state.badAttempts
+    gameState:state.gameState,
+    startTimer:state.startTimer
 })
 
 export default connect (mapStateToProps)(App)

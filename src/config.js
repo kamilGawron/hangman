@@ -1,1 +1,1 @@
-export const maxTimerValue = 10.00;
+export const maxTimerValue = 15;

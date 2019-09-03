@@ -14,7 +14,10 @@ class Loose extends React.Component{
                    <span>{this.props.expectedWord.toUpperCase()}</span>
                </div>
                <div>
-                   <NewGameBtn text="Try again" />
+                   <NewGameBtn 
+                       text="Try again"
+                       category={this.props.category}
+                    />
                </div>
             </div>
         )
@@ -22,6 +25,7 @@ class Loose extends React.Component{
 }
 
 const mapStateToProps = state =>({
-    expectedWord:state.drawnWord
+    expectedWord:state.drawnWord.word,
+    category:state.drawnWord.category
 })
 export default connect(mapStateToProps)(Loose);

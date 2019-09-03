@@ -4,7 +4,8 @@ import signsCounter from './signsCounter'
 import {rightAttempts} from './attempts'
 import {badAttempts} from './attempts'
 import themes from './themes'
-import leftTime from './timer'
+import {maxTimerValue,leftTime,startTimer} from './timer'
+import gameState from './gameState'
 
 const allReducers = combineReducers({
     drawnWord: wordsReducer,
@@ -13,6 +14,9 @@ const allReducers = combineReducers({
     badAttempts,
     themes,
     leftTime,
+    gameState,
+    startTimer,
+    maxTimerValue
 })
 
 export default allReducers;

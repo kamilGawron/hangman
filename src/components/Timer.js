@@ -9,19 +9,26 @@ import {
 } from '../services/countdown'
 import autoChooseSign from '../services/autoChooseSign'
 import {maxTimerValue} from '../config'
+import {startTimer} from '../actions/timer'
 
 
 class Timer extends React.Component{
-    componentDidMount(){
-        setCountdown();
+    componentWillUpdate(){
+        
     }
     componentDidUpdate(){
-        if(this.props.leftTime.toFixed(2)<=0.01){
-            autoChooseSign();
-        }
-        if ((this.props.signs===this.props.rightAttempts)||(this.props.badAttempts === 6)){
-            stopCountdown();
-        }
+            if(this.props.gameState&&!this.props.startTimer){
+                setCountdown();
+                this.props.onStartTimer();
+            }
+
+            if(this.props.leftTime.toFixed(2)<=0.01){
+                autoChooseSign();
+            }
+            if ((this.props.signs===this.props.rightAttempts)||(this.props.badAttempts === 6)){
+                stopCountdown();
+            }
+        
     }
     render(){
         return(
@@ -46,9 +53,13 @@ const mapStateToProps = state =>({
     leftTime:state.leftTime,
     signs:state.signsCounter,
     rightAttempts:state.rightAttempts,
-    badAttempts:state.badAttempts
-    
+    badAttempts:state.badAttempts,
+    gameState:state.gameState,
+    startTimer:state.startTimer
+})
+const mapActionsToProps =({
+    onStartTimer:startTimer
 })
 
 
-export default connect(mapStateToProps)(Timer);
+export default connect(mapStateToProps,mapActionsToProps)(Timer);

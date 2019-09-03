@@ -1,17 +1,29 @@
 import React from 'react'
 import NewGameBtn from './NewGameBtn'
 import Switcher from './Switcher'
+import MenuButton from './MenuButton'
 import Timer from './Timer'
+import {connect} from 'react-redux'
 
-function Header(){
-    return(
-        <React.Fragment>
-            <h1>HANGMAN</h1>
-            <NewGameBtn text="new game"/>
-            <Switcher />
-            <Timer />
-        </React.Fragment>
-    )
+class Header extends React.Component{
+    render(){
+        return(
+            <React.Fragment>
+                <h1>HANGMAN</h1>
+                <NewGameBtn 
+                    text="new word"
+                    category={this.props.category}
+                />
+                <MenuButton />
+                <Switcher />
+                <Timer />
+            </React.Fragment>
+        ) 
+    }
 }
 
-export default Header;
+const mapStateToProps = state =>({
+    category : state.drawnWord.category
+})
+
+export default connect(mapStateToProps)(Header);

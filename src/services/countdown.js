@@ -1,9 +1,9 @@
-import {maxTimerValue} from '../config'
 import store from '../store'
-import setLeftTime from '../actions/timer'
+import {setLeftTime} from '../actions/timer'
 
 var timeouts =[];
 var timer = document.getElementById("timer");
+var maxTimerValue= 0 ;
 
 export const stopCountdown = () =>{
     if (timeouts[0]){
@@ -14,6 +14,7 @@ export const stopCountdown = () =>{
 }
 export const setCountdown = () =>{
     stopCountdown();
+    maxTimerValue = store.getState().maxTimerValue;
     store.dispatch(setLeftTime(maxTimerValue))
     let counter = 0;
     for(let i=maxTimerValue;i>=0;i-=maxTimerValue/100/maxTimerValue){
@@ -38,6 +39,7 @@ export const getHundredthsOfSecond = () =>{
     )
 }
 export const timerStyle = () =>{
+    maxTimerValue = store.getState().maxTimerValue;
     return {
         width:(maxTimerValue-store.getState().leftTime)/maxTimerValue*100+'%',
     }

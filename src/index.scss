@@ -1,4 +1,7 @@
+/*
 $bgLight: rgb(224, 233, 255);
+*/
+$bgLight: rgb(255, 255, 255);
 $bgDark: rgb(7, 14, 29);
 $fontLight: rgb(7, 14, 29);
 $fontDark: rgb(224, 233, 255);
@@ -17,6 +20,7 @@ $fontDark: rgb(224, 233, 255);
                 border-radius: 5px;
                 transition: all .3s ease-in-out;
                 font-size: 2rem;
+                text-transform: uppercase;
 
                 &:disabled{
                     cursor: not-allowed;
@@ -25,6 +29,11 @@ $fontDark: rgb(224, 233, 255);
                     font-weight: bold;
                     transform: scale(1.1);
                     cursor: pointer;
+                }
+                &>span{
+                    font-size: 1.2rem;
+                    display: block;
+                    letter-spacing: 5px;
                 }
             }
         }
@@ -38,7 +47,8 @@ $fontDark: rgb(224, 233, 255);
             }
             &:not([disabled]):hover{
                 border: 1px solid rgba( $fontLight,1 );
-                background-color: rgba($bgDark,.3);
+                background-color: $bgDark;
+                color: $fontDark;
             }
         }
     }
@@ -53,345 +63,604 @@ $fontDark: rgb(224, 233, 255);
                 border: 1px solid rgba( $fontDark,1 );
                 background-color: rgba($bgLight,.8);
                 color: rgba( $fontLight,1 );
-
             }
         }
     }
 }
+@mixin switcher-style(){
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    font-size: 1.4rem; 
+    flex-direction: row;
+    @media all and (max-width: 768px){
+        flex-direction:column;
+        top:70px;
+        right: 5px;
+    }
+    input{
+        display: none;
 
-.body-light{
-    background-color: $bgLight;
-    color: $fontLight;
-}
-.body-dark{
-    background-color: $bgDark;
-    color: $fontDark;
+        &:checked+label{
+            background-color: darkgreen;
+            border: 1px solid $bgLight;
+
+            &:after{
+                left: calc(100% - 5px);
+                -webkit-transform: translateX(-100%);
+                transform: translateX(-100%);
+                background-color: $bgDark;
+            }
+        }
+    }
+    label{
+        margin-left: 10px;
+        cursor: pointer;
+        width: 60px;
+        height: 30px;
+        background-color: #ffffff;
+        display: block;
+        border-radius: 100px;
+        position: relative;
+        -webkit-transition: all .3s ease-in-out;
+        transition: all .3s ease-in-out;
+        border: 1px solid $bgDark;
+        @media all and (max-width: 480px){
+            width: 40px;
+            height: 20px;
+        }
+        &:after{
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            content: '';
+            height: 20px;
+            width: 20px;
+            display: block;
+            background-color: grey;
+            border-radius: 90px;
+            -webkit-transition: all .3s ease-in-out;
+            transition: all .3s ease-in-out;
+            @media all and (max-width: 480px){
+                top: 3px;
+                width: 14px;
+                height: 14px;
+            }
+        }
+    }
 }
 html{
     font-size: 10px;
     body{
         font-family: 'Roboto Mono', monospace;
         margin: 0;
-        .wrapper{
-            display: flex;
-            flex-direction: column;
-            &>div{
-                display: flex;
-                &:nth-of-type(1){
-                    position: relative;
+        overflow: hidden;
+        &.body-light{
+            background-color: $bgLight;
+            color: $fontLight;
+        }
+        &.body-dark{
+            background-color: $bgDark;
+            color: $fontDark;
+        }
+        &>div>div{
+            &#menu{
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                z-index: 100;
+                &>div{
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
                     justify-content: center;
+                    align-items: center;
+                    text-transform: uppercase;
                     flex-direction: column;
-                    h1{
-                        margin-top: 10px;
-                        font-size: 5rem;
-                        text-align: center;
-                        @media all and (max-width: 768px){
-                            margin-top: 0;
-                        }
-                    }                
-                    &>div {
+                    &>div{
+                        position: relative;
                         &:nth-of-type(1){
-                            @include button-style(50px,200px);
+                            width: 100vw;
                             position: absolute;
-                            left:30px;
-                            top:30px;
+                            box-sizing: border-box;
+                            top: 0;
+                            &>h1{
+                                text-align: center;
+                                font-size: 5rem;
+                                
+                                @media all and (max-width:480px){
+                                    font-size: 4rem;
+                                }
+                            }
                             &>div{
-                                button{
+                                @include switcher-style();
+                                position: absolute;
+                                right: 10px;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                
+                                @media all and (max-width:480px){
                                     font-size: 1rem;
-                                }
-                            }
-                            @media all and (max-width: 768px){
-                                @include button-style(40px,160px);
-                                top:70px;
-                                left: 5px;
-                                &>div{
-                                    button{
-                                        font-size: 1rem;
-                                    }
-                                }
-                            }
-                            @media all and (max-width: 480px){
-                                @include button-style(20px,120px);
-                                &>div{
-                                    button{
-                                        font-size: 1.4rem !important;
-                                    }
+                                    top: 10px;
+                                    right: 10px;
+                                    transform: none;
                                 }
                             }
                         }
                         &:nth-of-type(2){
-                            position: absolute;
-                            right: 30px;
-                            top:30px;
-                            display: flex;
-                            align-items: center;
-                            text-transform: uppercase;
-                            font-size: 1.4rem; 
-                            flex-direction: row;
-                            @media all and (max-width: 768px){
-                                flex-direction:column;
-                                top:70px;
-                                right: 5px;
-                            }
-                            
-                            input{
-                                display: none;
-                                
-                                &:checked+label{
-                                    background-color: darkgreen;
-                                    border: 1px solid $bgLight;
-
-                                    &:after{
-                                        left: calc(100% - 5px);
-                                        -webkit-transform: translateX(-100%);
-                                        transform: translateX(-100%);
-                                        background-color: $bgDark;
-                                    }
-                                }
-                            }
-                            label{
-                                margin-left: 10px;
-                                cursor: pointer;
-                                width: 60px;
-                                height: 30px;
-                                background-color: #ffffff;
-                                display: block;
-                                border-radius: 100px;
-                                position: relative;
-                                -webkit-transition: all .3s ease-in-out;
-                                transition: all .3s ease-in-out;
-                                border: 1px solid $bgDark;
-                                @media all and (max-width: 480px){
-                                    width: 40px;
-                                    height: 20px;
-                                }
-                                &:after{
-                                    position: absolute;
-                                    top: 5px;
-                                    left: 5px;
-                                    content: '';
-                                    height: 20px;
-                                    width: 20px;
-                                    display: block;
-                                    background-color: grey;
-                                    border-radius: 90px;
-                                    -webkit-transition: all .3s ease-in-out;
-                                    transition: all .3s ease-in-out;
-                                    @media all and (max-width: 480px){
-                                        top: 3px;
-                                        width: 14px;
-                                        height: 14px;
-                                    }
-                                }
-                            }
+                            font-size: 2rem;
+                            margin-bottom: 10px;
+                            letter-spacing: 5px;
+                            text-align: center;
                         }
                         &:nth-of-type(3){
-                            width: 100vw;
-                            height: 10px;
-                            
+                            margin-bottom: 30px;
+                            text-align: center;
                             &>div{
-                                &:nth-of-type(1){
-                                    font-size: 3rem;
-                                    text-align: center;
-                                    &>span{
-                                        &:nth-of-type(1){
-                                            font-size: 4rem; 
-                                        }
-                                    }
-                                    @media all and (max-width: 768px){
-                                        font-size: 2rem;
-                                        &>span{
-                                            &:nth-of-type(1){
-                                                font-size: 3rem; 
-                                            }
-                                        }
-                                    }
-                                    @media all and (max-width: 480px){
-                                        margin-top: 20px;
-                                        &>span{
-                                            &:nth-of-type(1){
-                                                font-size: 2rem; 
-                                            }
-                                        }
-                                    }
+                                &>button{
+                                    background-color: rgba(0,0,0,0);
+                                    outline: none;
+                                    padding: 15px;
+                                    margin: 5px;
+                                    border-radius: 20px;
+                                    text-transform: uppercase;
+                                    font-size: 2rem;
+                                    cursor: pointer;
+                                    transition: all .4s ease-in-out;
+                                    width: 150px;
                                     
-                                }
-                                &:nth-of-type(2){
-                                    margin-top: 5px;
-                                    height: 10px;
-                                    &.timer-light{
-                                        background-color: $bgDark;
+                                    @media all and (max-width:480px){
+                                        width: 100px;
+                                        font-size: 1.4rem;
                                     }
-                                    &.timer-dark{
-                                        background-color: $bgLight;
-                                    }  
                                 }
-                                
+                            }
+                        }
+                        &:nth-of-type(4){
+                            font-size: 2rem;
+                            margin-bottom: 10px;
+                            letter-spacing: 5px;
+                        }
+                        &:nth-of-type(5){
+                            display: flex;
+                            &>div{
+                                text-align: center;
+                                &>button{
+                                    background-color: rgba(0,0,0,0);
+                                    outline: none;
+                                    padding: 15px;
+                                    margin: 5px;
+                                    border-radius: 20px;
+                                    text-transform: uppercase;
+                                    font-size: 2rem;
+                                    cursor: pointer;
+                                    transition: all .4s ease-in-out;
+                                    width: 150px;
+                                    
+                                    @media all and (max-width:480px){
+                                        width: 100px;
+                                        font-size: 1.4rem;
+                                    }
+                                }
+                            }
+                        }
+                        &:nth-of-type(6){
+                            @include button-style(50px,400px);
+                            margin-top: 30px;
+                            
+                            @media all and (max-width:480px){
+                                @include button-style(50px,300px);
+                            }
+                        }
+                        
+                    }
+                    &.menu-light{
+                        background-color: $bgLight;
+                        &>div{
+                            &:nth-of-type(3), &:nth-of-type(5){
+                                &>div{
+                                    button{
+                                        border: 1px solid rgba(0, 0, 0, 0.6);
+                                        color: rgba(0, 0, 0, 0.6);
+                                        &:hover{
+                                            &:not(.category-active .level-active){
+                                                border: 1px solid rgba(0, 0, 0, 1);
+                                                color: rgba(0, 0, 0, 1);  
+                                            }
+                                        }
+                                        &.category-active, &.level-active{
+                                            border: 1px solid #00d900;
+                                            color: #00d900;
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
-
-                }
-                
-            }
-            &>div:nth-of-type(2){
-                margin-top: 100px;
-                justify-content: center;
-                
-                @media all and (max-width: 768px){
-                    margin-top: 70px;
-                }
-                
-                div.sign, div.space{
-                    text-align: center;
-                    height: 50px;
-                    width: 50px;
-                    line-height: 50px;
-                    display: inline-block;
-                    margin-right: 10px;
-                    font-size: 4rem;
-                    
-                    @media all and (max-width: 768px){
-                        height: 30px;
-                        width: 30px;
-                        line-height: 30px;
-                        font-size: 3rem;
+                    &.menu-dark{
+                        background-color: $bgDark;
+                        &>div{
+                            &:nth-of-type(3),&:nth-of-type(5){
+                                &>div{
+                                    &>button{
+                                        border: 1px solid rgba(255, 255, 255, 0.6);
+                                        color: rgba(255, 255, 255, 0.6);
+                                        &:hover{
+                                            &:not(.category-active .level-active){
+                                                border: 1px solid rgba(255, 255, 255, 1);
+                                                color: rgba(255, 255, 255, 1);  
+                                            }
+                                        }
+                                        &.category-active, &.level-active{
+                                            border: 1px solid #00d900;
+                                            color: #00d900;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                    @media all and (max-width: 480px){
-                        height: 20px;
-                        width: 20px;
-                        line-height: 20px;
-                        font-size: 2rem;
-                    }
-                    
-                    .hide{
-                        visibility: hidden;
-                    }
-                    .show{
-                        visibility: visible;
-                    }
-                }
-                .fields-light .sign{
-                    border-bottom: 1px solid $fontLight;
-                    margin-bottom: 5px;
-                }
-                .fields-dark .sign{
-                    border-bottom: 1px solid $fontDark;
-                    margin-bottom: 5px;
                 }
             }
-            &>div:nth-of-type(3){
+            &#wrapper{
                 display: flex;
-                flex-direction: row;
-               
-                @media all and (max-width: 600px){
-                    flex-direction: column;
-                }
-                
+                flex-direction: column;
                 &>div{
                     display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    padding: 10px;
-                    @include button-style(50px, 50px);
-
                     &:nth-of-type(1){
-                        width: 65%;
-                        @media all and (max-width: 768px){
-                            width: 50%;
-                            padding:0;
-                            margin: 0;
-                        }
-                        @media all and (max-width: 600px){
-                            width: 100%;
-                            padding:0;
-                            margin: 0;
-                        }
-                        @media all and (max-width: 480px){
-                            @include button-style(30px, 30px);
-                        }
-                    }
-                    &:nth-of-type(2){
-                        width: 35%;
-                        @media all and (max-width: 768px){
-                            width: 50%;
-                        }
-                        @media all and (max-width: 600px){
-                            width: 100%;
-                        }
-                    }
-                    img{
-                        height: 400px;
-                        max-width: 100%;
-                        margin-right: 40px;
-                        @media all and (max-width: 480px){
-                            height: 250px;
-                        }
-                    }
-                    
-                    
-                    &.loose{
-                        display: flex;
+                        position: relative;
+                        justify-content: center;
                         flex-direction: column;
-                        
-                        &>div{
+                        h1{
+                            margin-top: 10px;
+                            font-size: 5rem;
+                            text-align: center;
+                            @media all and (max-width: 768px){
+                                margin-top: 0;
+                            }
+                            @media all and (max-width: 480px){
+                                font-size: 2.5rem;
+                            }
+                        }                
+                        &>div {
                             &:nth-of-type(1){
-
-                                &>h3{
-                                    font-size: 4rem;
-                                    text-transform: uppercase;
-                                    margin: 15px 0;
-                                    @media all and (max-width:480px){
-                                        font-size: 2.4rem;
+                                @include button-style(50px,200px);
+                                position: absolute;
+                                left:30px;
+                                top:30px;
+                                &>div{
+                                    button{
+                                        font-size: 1rem;
+                                        &>span{
+                                            display: inline;
+                                        }
+                                    }
+                                }
+                                @media all and (max-width: 768px){
+                                    @include button-style(40px,120px);
+                                    top:0px;
+                                    left:0px;
+                                    &>div{
+                                        button{
+                                            font-size: 1.2rem !important;
+                                            &>span{
+                                                font-size: 1rem !important;
+                                            }
+                                        }
+                                    }
+                                }
+                                @media all and (max-width: 480px){
+                                    top: 0;
+                                    left: 0;
+                                    @include button-style(20px,80px);
+                                    &>div{
+                                        button{
+                                            font-size: 1rem !important;
+                                            &>span{
+                                                display: none !important;
+                                            }
+                                        }
                                     }
                                 }
                             }
                             &:nth-of-type(2){
-                                display: flex;
-                                align-items: center;
-                                &>span{
+                                @include button-style(30px,240px);
+                                text-align: center;
+                                position: absolute;
+                                top: 70px;
+                                left: 50%;
+                                transform: translateX(-50%);
+                                &>div>button{
                                     text-transform: uppercase;
-                                    text-align: center;
-                                    &:nth-of-type(1){
-                                        font-size: 3rem;
-                                        margin-right: 20px;
-                                        @media all and (max-width:768px){
-                                            font-size: 2rem;
-                                        }
-
-                                    }
-                                    &:nth-of-type(2){
-                                        letter-spacing: 10px;
-                                        font-size: 4rem;
-                                        @media all and (max-width:768px){
-                                            font-size: 3rem;
+                                }
+                                @media all and (max-width: 768px){
+                                    top: 60px;
+                                    
+                                }
+                                @media all and (max-width: 480px){
+                                    top: 40px;
+                                    @include button-style(20px,120px);
+                                    &>div{
+                                        button{
+                                            font-size: 1rem !important;
                                         }
                                     }
                                 }
                             }
                             &:nth-of-type(3){
+                                position: absolute;
+                                right: 30px;
+                                top:30px;
+                                display: flex;
+                                align-items: center;
+                                text-transform: uppercase;
+                                font-size: 1.4rem; 
+                                flex-direction: row;
+                                @media all and (max-width: 768px){
+                                    flex-direction:column;
+                                    top:10px;
+                                    right: 10px;
+                                }
+                                @media all and (max-width: 480px){
+                                    flex-direction:column;
+                                    top:0px;
+                                    right: 0px;
+                                    font-size: 1rem;
+                                }
+                                input{
+                                    display: none;
+
+                                    &:checked+label{
+                                        background-color: darkgreen;
+                                        border: 1px solid $bgLight;
+
+                                        &:after{
+                                            left: calc(100% - 5px);
+                                            -webkit-transform: translateX(-100%);
+                                            transform: translateX(-100%);
+                                            background-color: $bgDark;
+                                        }
+                                    }
+                                }
+                                label{
+                                    margin-left: 10px;
+                                    cursor: pointer;
+                                    width: 60px;
+                                    height: 30px;
+                                    background-color: #ffffff;
+                                    display: block;
+                                    border-radius: 100px;
+                                    position: relative;
+                                    -webkit-transition: all .3s ease-in-out;
+                                    transition: all .3s ease-in-out;
+                                    border: 1px solid $bgDark;
+                                    @media all and (max-width: 480px){
+                                        width: 40px;
+                                        height: 20px;
+                                    }
+                                    &:after{
+                                        position: absolute;
+                                        top: 5px;
+                                        left: 5px;
+                                        content: '';
+                                        height: 20px;
+                                        width: 20px;
+                                        display: block;
+                                        background-color: grey;
+                                        border-radius: 90px;
+                                        -webkit-transition: all .3s ease-in-out;
+                                        transition: all .3s ease-in-out;
+                                        @media all and (max-width: 480px){
+                                            top: 3px;
+                                            width: 14px;
+                                            height: 14px;
+                                        }
+                                    }
+                                }
+                            }
+                            &:nth-of-type(4){
+                                width: 100vw;
+                                height: 10px;
                                 &>div{
-                                   @include button-style(60px, 250px);
-                                   @media all and (max-width:768px){
-                                       @include button-style(40px,180px);
-                                   }
+                                    &:nth-of-type(1){
+                                        font-size: 3rem;
+                                        text-align: center;
+                                        &>span{
+                                            &:nth-of-type(1){
+                                                font-size: 4rem; 
+                                            }
+                                        }
+                                        @media all and (max-width: 768px){
+                                            font-size: 2rem;
+                                            &>span{
+                                                &:nth-of-type(1){
+                                                    font-size: 3rem; 
+                                                }
+                                            }
+                                        }
+                                        @media all and (max-width: 480px){
+                                            margin-top: 20px;
+                                            &>span{
+                                                &:nth-of-type(1){
+                                                    font-size: 2rem; 
+                                                }
+                                            }
+                                        }
+                                    }
+                                    &:nth-of-type(2){
+                                        margin-top: 5px;
+                                        height: 10px;
+                                        &.timer-light{
+                                            background-color: $bgDark;
+                                        }
+                                        &.timer-dark{
+                                            background-color: $bgLight;
+                                        }  
+                                    }
                                 }
                             }
                         }
-                        button{
-                            width: 200px;
+                    }
+                }
+                &>div:nth-of-type(2){
+                    margin-top: 100px;
+                    justify-content: center;
+                    
+                    @media all and (max-width: 768px){
+                        margin-top: 70px;
+                    }
+                    &>div>div:nth-of-type(1){
+                        text-align: center;
+                        text-transform: uppercase;
+                        font-size: 2rem;
+                        margin-bottom: 20px;
+                    }
+                    div.sign, div.space{
+                        text-align: center;
+                        height: 50px;
+                        width: 50px;
+                        line-height: 50px;
+                        display: inline-block;
+                        margin-right: 10px;
+                        font-size: 4rem;
+
+                        @media all and (max-width: 768px){
+                            height: 30px;
+                            width: 30px;
+                            line-height: 30px;
+                            font-size: 3rem;
+                        }
+                        @media all and (max-width: 480px){
+                            height: 20px;
+                            width: 20px;
+                            line-height: 20px;
+                            font-size: 2rem;
+                        }
+                        .hide{
+                            visibility: hidden;
+                        }
+                        .show{
+                            visibility: visible;
                         }
                     }
-                    &.win{
-                        display: flex;
+                    .fields-light .sign{
+                        border-bottom: 1px solid $fontLight;
+                        margin-bottom: 5px;
+                    }
+                    .fields-dark .sign{
+                        border-bottom: 1px solid $fontDark;
+                        margin-bottom: 5px;
+                    }
+                }
+                &>div:nth-of-type(3){
+                    display: flex;
+                    flex-direction: row;
+
+                    @media all and (max-width: 600px){
                         flex-direction: column;
-                        &>h3{
-                            font-size: 4rem;
-                            text-transform: uppercase;
-                            margin: 15px 0;
+                    }
+                    &>div{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding: 10px;
+                        @include button-style(50px, 50px);
+
+                        &:nth-of-type(1){
+                            width: 65%;
+                            @media all and (max-width: 768px){
+                                width: 50%;
+                                padding:0;
+                                margin: 0;
+                            }
+                            @media all and (max-width: 600px){
+                                width: 100%;
+                                padding:0;
+                                margin: 0;
+                            }
+                            @media all and (max-width: 480px){
+                                @include button-style(30px, 30px);
+                            }
                         }
-                        &>div{
-                            @include button-style(50px, 350px)
+                        &:nth-of-type(2){
+                            width: 35%;
+                            @media all and (max-width: 768px){
+                                width: 50%;
+                            }
+                            @media all and (max-width: 600px){
+                                width: 100%;
+                            }
+                        }
+                        img{
+                            height: 400px;
+                            max-width: 100%;
+                            margin-right: 40px;
+                            @media all and (max-width: 480px){
+                                height: 250px;
+                            }
+                        }
+                        &.loose{
+                            display: flex;
+                            flex-direction: column;
+
+                            &>div{
+                                &:nth-of-type(1){
+
+                                    &>h3{
+                                        font-size: 4rem;
+                                        text-transform: uppercase;
+                                        margin: 15px 0;
+                                        @media all and (max-width:480px){
+                                            font-size: 2.4rem;
+                                        }
+                                    }
+                                }
+                                &:nth-of-type(2){
+                                    display: flex;
+                                    align-items: center;
+                                    &>span{
+                                        text-transform: uppercase;
+                                        text-align: center;
+                                        &:nth-of-type(1){
+                                            font-size: 3rem;
+                                            margin-right: 20px;
+                                            @media all and (max-width:768px){
+                                                font-size: 2rem;
+                                            }
+                                        }
+                                        &:nth-of-type(2){
+                                            letter-spacing: 10px;
+                                            font-size: 4rem;
+                                            @media all and (max-width:768px){
+                                                font-size: 3rem;
+                                            }
+                                        }
+                                    }
+                                }
+                                &:nth-of-type(3){
+                                    &>div{
+                                        @include button-style(60px, 250px);
+                                        @media all and (max-width:768px){
+                                            @include button-style(40px,180px);
+                                        }
+                                    }
+                                }
+                            }
+                            button{
+                                width: 200px;
+                            }
+                        }
+                        &.win{
+                            display: flex;
+                            flex-direction: column;
+                            &>h3{
+                                font-size: 4rem;
+                                text-transform: uppercase;
+                                margin: 15px 0;
+                            }
+                            &>div{
+                                @include button-style(50px, 350px)
+                            }
                         }
                     }
                 }
