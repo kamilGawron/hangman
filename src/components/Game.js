@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from './Header'
 import WordFields from './WordFields'
-import Buttons from './Buttons'
+import SignButtons from './SignButtons'
 import Win from './Win'
 import Loose from './Loose'
 import HangmanImage from './HangmanImage'
@@ -21,7 +21,7 @@ class Game extends React.Component{
                     {
                         this.props.mistakes!=6?
                             this.props.signs!=this.props.points?
-                            <Buttons /> : <Win />
+                            <SignButtons /> : <Win />
                         :
                             <Loose />
                     }

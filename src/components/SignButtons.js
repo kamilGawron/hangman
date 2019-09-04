@@ -2,7 +2,7 @@ import React from 'react'
 import getButtons from '../services/getButtons'
 import {connect} from 'react-redux'
 
-class Buttons extends React.Component{
+class SignButtons extends React.Component{
     render(){
         const buttons = getButtons();
         return(
@@ -19,4 +19,4 @@ const mapStateToProps =state=>({
     theme:state.themes
 })
 
-export default connect(mapStateToProps)(Buttons)
+export default connect(mapStateToProps)(SignButtons)
