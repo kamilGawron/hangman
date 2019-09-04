@@ -9,6 +9,10 @@ class Levels extends React.Component{
         this.props.onSetLeftTime(parseInt(e.target.value))
         this.props.onSetMaxTimerValue(parseInt(e.target.value))
     }
+    componentDidMount(){
+        let activeLevelBtn = [...document.querySelectorAll(`#menu button[value="${this.props.maxTime}"]`)];
+        activeLevelBtn[0].className = "level-active";
+    }
     render(){
         return(
             <React.Fragment>
@@ -35,7 +39,7 @@ class Levels extends React.Component{
 }
 
 const mapStateToProps = state =>({
-    
+    maxTime : state.maxTimerValue,
 })
 const mapDispatchToProps = ({
     onSetLeftTime : setLeftTime,

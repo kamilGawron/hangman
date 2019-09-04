@@ -8,6 +8,10 @@ class Categories extends React.Component{
         e.target.className= "category-active";
         this.props.onSetCategory(e.target.innerHTML);
     }
+    componentDidMount(){
+        let activeCategoryBtn = [...document.querySelectorAll(`#menu button[value="${this.props.category}"]`)];
+        activeCategoryBtn[0].className = "category-active";
+    }
     render(){
         return (
             <React.Fragment>
@@ -26,7 +30,8 @@ class Categories extends React.Component{
 }
 
 const mapStateToProps = state =>({
-    theme:state.themes
+    theme:state.themes,
+    category: state.drawnWord.category
 })
 const mapDispatchToProps = ({
     onSetCategory:setCategory,
